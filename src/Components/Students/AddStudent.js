@@ -6,14 +6,12 @@ import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import moment from 'moment';
-import CountryStates  from '../../Utilities/CountryStates'
-import Studies from '../../Utilities/Studies'
+import {CountryStates,Studies}  from '../../Utilities/Constants'
 //Local Imports
 import styles from './styles';
 import { addStudent,editStudent } from '../../Redux/Actions';
 import { generateGuid} from '../../Utilities/GlobalFunctions';
 import ModalHeader from './ModalHeader';
-
 class AddStudent extends Component {
   constructor(props) {
     super(props);
@@ -22,12 +20,12 @@ class AddStudent extends Component {
       {id:'MiddleName',value:this.props.editText.MiddleName ? this.props.editText.MiddleName : ''},
       {id:'LastName',value:this.props.editText.LastName ? this.props.editText.LastName : ''},
       {id:'Specialization',value:this.props.editText.Specialization ? this.props.editText.Specialization : ''},
-      {id:'Latest Education',value:this.props.editText.Education ? this.props.editText.Education : ''},
+      {id:'Latest Education',value:this.props.editText.Education ? this.props.editText.Education : Studies[0]},
     ],
     address:[{id:'House no',value:this.props.editText.Houseno ? this.props.editText.Houseno : ''},
     {id:'Locality',value:this.props.editText.Locality ? this.props.editText.Locality : ''},
-    {id:'City ot Town',value:this.props.editText.City ? this.props.editText.City : ''},
-    {id:'State',value:this.props.editText.State ? this.props.editText.State : ''},
+    {id:'City or Town',value:this.props.editText.City ? this.props.editText.City : ''},
+    {id:'State',value:this.props.editText.State ? this.props.editText.State : CountryStates[0]},
     {id:'Pincode',value:this.props.editText.Pincode ? this.props.editText.Pincode : ''},
   ],
     date : this.props.editText.Dob ? this.props.editText.Dob : '',
@@ -50,7 +48,8 @@ class AddStudent extends Component {
       Locality:address[1].value,
       City:address[2].value,
       State:address[3].value,
-      Pincode:address[4].value
+      Pincode:address[4].value,
+      Age:this.state.age
     };
     if (this.props.editmode) {
       let list = this.props.studentsList
@@ -65,7 +64,8 @@ class AddStudent extends Component {
       data1.Locality=address[1].value;
       data1.City=address[2].value;
       data1.State=address[3].value;
-      data1.Pincode=address[4].value
+      data1.Pincode=address[4].value;
+      data1.Age=this.state.age;
       list[this.props.index]=data1
       this.props.editStudent(list)
     }
@@ -76,8 +76,14 @@ class AddStudent extends Component {
 }
 
   fieldValidation = () => {
-    const { form} = this.state;
-    if(form[0].value!=''){
+    const { form,date,address} = this.state;
+    let validate=true;
+    for(i=0;i<5;i++)
+    {
+      if(form[i].value=='' || address[i].value=='')
+      validate=false;
+    }
+    if(validate && date != ''){
       this.addProduct();
     }
     else {
@@ -108,6 +114,7 @@ class AddStudent extends Component {
         this.setState({ isVisibleStartDate: !this.state.isVisibleStartDate });
   }
   handleDatePicked = (datetime) => {
+    let Currentdate=new Date();
     let Deliverydate=moment(datetime).format('DD-MM-YYYY');
     this.ageCalculate(Deliverydate);
     this.setState({date:Deliverydate})
@@ -143,7 +150,6 @@ class AddStudent extends Component {
         value={item.value}
         editable={true}
         style={styles.input}
-        // autoFocus={true}
         multiline={true}
         keyboardType={item.id=='Pincode' ? 'numeric' : 'default'}
         underlineColorAndroid='#0000' 
@@ -158,24 +164,36 @@ class AddStudent extends Component {
    return this.information(item,index,"address")
     
   }
-  ageCalculate=(date)=>{
-  const year = Number(1996);
-  const month = Number(6);
-  const day = Number(12);
-  const today = new Date();
-  const age = today.getFullYear() - year;
+  ageCalculate=(dob)=>{
+  let date=dob.split('-');
+ let year = Number(date[2]);
+ let month = Number(date[1]);
+ let day = Number(date[0]);
+  let today = new Date();
+  let age = today.getFullYear() - year;
   if (today.getMonth() < month || (today.getMonth() == month && today.getDate() < day)) {
   age--;
 }
-this.setState({age:age})
+this.setState({age})
+  }
+  rendetAge=()=>{
+    if(this.state.date != ''){
+    return (
+      <View>
+        <Text style={[styles.label, { marginTop: 4 }]}>
+          Age : {this.state.age}
+        </Text>
+      </View>
+    );
+    }
+    return null
   }
   render() {
     const {editmode} = this.props;
     let title = 'Add Students';
-    console.log(typeof this.state.age,this.state.age)
     return (
       <View style={styles.addproductcontainer}>
-        <ModalHeader color={'#25a'} onSave={this.fieldValidation} onClose={this.props.setModalVisibility} onDelete={this.onDelete}
+        <ModalHeader color={"#13ca91"} onSave={this.fieldValidation} onClose={this.props.setModalVisibility} onDelete={this.onDelete}
           title={title} editmode={editmode}
         />
         <ScrollView keyboardShouldPersistTaps='always'>
@@ -207,10 +225,7 @@ this.setState({age:age})
           mode='date'
         />
       </View>
-     {this.state.date !='' ?
-     <View> 
-       <Text>Age</Text>
-      <Text>{this.state.age}</Text> </View>: null}
+     {this.rendetAge()}
       < FlatList
               data={this.state.address}
               extraData={this.state}

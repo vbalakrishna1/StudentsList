@@ -41,9 +41,9 @@ function Login(props) {
             onChangeText={(pass) => setPassword(pass)} />
 
       </View>
-      <TouchableOpacity style={{ justifyContent: 'center', backgroundColor: '#25a' }}
+      <TouchableOpacity style={styles.loginContainer}
         onPress={() => onSubmit()}>
-        <Text style={{ color: 'white', fontSize: 16, padding: 8, borderRadius: 10 }}>Log in</Text>
+        <Text style={{ color: 'white', fontSize: 16, padding: 8}}>Log in</Text>
       </TouchableOpacity>
     </View>}
     </>

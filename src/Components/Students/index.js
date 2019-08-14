@@ -1,6 +1,13 @@
 //Lib Imports
 import React, { Component } from 'react';
-import { Text, View, Modal, TouchableOpacity, FlatList } from 'react-native';
+import {
+  Text,
+  View,
+  Modal,
+  TouchableOpacity,
+  FlatList,
+  ScrollView
+} from "react-native";
 import { connect } from 'react-redux';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 
@@ -9,7 +16,7 @@ import AddStudent from './AddStudent';
 import styles from './styles';
 import Tile from './Tile';
 import StatusBarX from '../StatusBar'
-import LightenDarkenColor from '../../Utilities/LightenDarkenColor'
+import {LightenDarkenColor} from '../../Utilities/GlobalFunctions'
 
 class Students extends Component {
   constructor(props) {
@@ -44,28 +51,48 @@ class Students extends Component {
     let {students}=this.props;
     return (
       <View style={{ flex: 1, backgroundColor: "#e9ebee" }}>
-        <StatusBarX backgroundColor={LightenDarkenColor("#0067b7", -20)} />
+        <StatusBarX backgroundColor={LightenDarkenColor("#13ca91", -20)} />
+        <View
+          style={{
+            backgroundColor: "#13ca91",
+            padding: 13,
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              color: "white"
+            }}
+          >
+            Students Information
+          </Text>
+        </View>
         <View>
           <View style={styles.productContainer}>
             <Text style={styles.activityHeaderText}>Student Details</Text>
             <View>
               <TouchableOpacity
                 onPress={() => this.setModalVisibility()}
-                style={[styles.addContainer, { backgroundColor: "blue" }]}
+                style={[
+                  styles.addContainer,
+                  { backgroundColor: "#13ca91" }
+                ]}
               >
                 <Icon name="plus-circle" style={styles.plusIcon} />
                 <Text style={styles.addButton}>Add</Text>
               </TouchableOpacity>
             </View>
           </View>
-          <View>
+          <ScrollView keyboardShouldPersistTaps="always">
             <FlatList
               data={students}
               extraData={this.props}
               renderItem={this._renderItem}
               keyExtractor={this._keyExtractor}
             />
-          </View>
+          </ScrollView>
           <Modal
             animationType="slide"
             transparent={false}
