@@ -15,8 +15,7 @@ import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import AddStudent from './AddStudent';
 import styles from './styles';
 import Tile from './Tile';
-import StatusBarX from '../StatusBar'
-import {LightenDarkenColor} from '../../Utilities/GlobalFunctions'
+
 
 class Students extends Component {
   constructor(props) {
@@ -51,7 +50,6 @@ class Students extends Component {
     let {students}=this.props;
     return (
       <View style={{ flex: 1, backgroundColor: "#e9ebee" }}>
-        <StatusBarX backgroundColor={LightenDarkenColor("#13ca91", -20)} />
         <View
           style={{
             backgroundColor: "#13ca91",
@@ -85,14 +83,21 @@ class Students extends Component {
               </TouchableOpacity>
             </View>
           </View>
-          <ScrollView keyboardShouldPersistTaps="always">
-            <FlatList
-              data={students}
-              extraData={this.props}
-              renderItem={this._renderItem}
-              keyExtractor={this._keyExtractor}
-            />
-          </ScrollView>
+          {students.length > 0 ? (
+            <ScrollView keyboardShouldPersistTaps="always">
+              <FlatList
+                data={students}
+                extraData={this.props}
+                renderItem={this._renderItem}
+                keyExtractor={this._keyExtractor}
+              />
+            </ScrollView>
+          ) : (<View style={{justifyContent:'center',alignItems:'center'}}>
+            <Text>
+              No student information
+            </Text>
+            </View>
+          )}
           <Modal
             animationType="slide"
             transparent={false}
