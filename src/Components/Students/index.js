@@ -84,14 +84,14 @@ class Students extends Component {
             </View>
           </View>
           {students.length > 0 ? (
-            <ScrollView keyboardShouldPersistTaps="always">
+            <View>
               <FlatList
                 data={students}
                 extraData={this.props}
                 renderItem={this._renderItem}
                 keyExtractor={this._keyExtractor}
               />
-            </ScrollView>
+            </View>
           ) : (<View style={{justifyContent:'center',alignItems:'center'}}>
             <Text>
               No student information

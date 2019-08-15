@@ -22,6 +22,7 @@ function Login(props) {
       <GeneralStatusBarColor
         backgroundColor="#13ca91"
         barStyle="light-content"
+        statusBarHidden= {true}
       />
       {isHomepage ? (
         <Students />
@@ -39,11 +40,7 @@ function Login(props) {
             />
           </View>
           <View
-            style={{
-              marginTop: 16,
-              flexDirection: "row",
-              alignItems: "center"
-            }}
+            style={[styles.inputContainer,{marginTop:10}]}
           >
             <Icon name="key" style={styles.mobileIcon} />
             <TextInput
@@ -60,7 +57,7 @@ function Login(props) {
             style={styles.loginContainer}
             onPress={() => onSubmit()}
           >
-            <Text style={{ color: "white", fontSize: 16, padding: 8 }}>
+            <Text style={{ color: "white", fontSize: 16, padding: 8}}>
               Log in
             </Text>
           </TouchableOpacity>

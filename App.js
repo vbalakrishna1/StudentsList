@@ -9,7 +9,7 @@ export default function App() {
   return (
     <View style={styles.container}>
     <Provider store={store}>
-    <Login {...this.props}/>
+    <Login />
       </Provider>
     </View>
   );
