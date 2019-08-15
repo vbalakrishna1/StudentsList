@@ -1,7 +1,7 @@
 {
+  "urlRandomness": "yv-rg8",
   "hostType": "lan",
   "lanType": "ip",
   "dev": true,
-  "minify": false,
-  "urlRandomness": "uv-zyg"
+  "minify": false
 }

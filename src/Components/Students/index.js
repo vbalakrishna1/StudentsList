@@ -5,8 +5,7 @@ import {
   View,
   Modal,
   TouchableOpacity,
-  FlatList,
-  ScrollView
+  FlatList
 } from "react-native";
 import { connect } from 'react-redux';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';

@@ -22,7 +22,6 @@ function Login(props) {
       <GeneralStatusBarColor
         backgroundColor="#13ca91"
         barStyle="light-content"
-        statusBarHidden= {true}
       />
       {isHomepage ? (
         <Students />
