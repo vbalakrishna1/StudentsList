@@ -66,7 +66,7 @@ class Students extends Component {
             Students Information
           </Text>
         </View>
-        <View>
+        <View style={{flex:1}}>
           <View style={styles.productContainer}>
             <Text style={styles.activityHeaderText}>Student Details</Text>
             <View>
@@ -83,7 +83,7 @@ class Students extends Component {
             </View>
           </View>
           {students.length > 0 ? (
-            <View>
+            <View style={{flex:1}}>
               <FlatList
                 data={students}
                 extraData={this.props}
@@ -99,7 +99,7 @@ class Students extends Component {
           )}
           <Modal
             animationType="slide"
-            transparent={false}
+            transparent={true}
             visible={this.state.modalVisible}
             onRequestClose={this.setModalVisibility}
           >

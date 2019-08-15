@@ -29,6 +29,10 @@
     "android": {
       "package": "com.wealthrunner.list",
       "versionCode": 1
+    },
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#13ca9188"
     }
   }
 }

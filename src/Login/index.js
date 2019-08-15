@@ -20,7 +20,7 @@ function Login(props) {
   return (
     <>
       <GeneralStatusBarColor
-        backgroundColor="#13ca91"
+        backgroundColor="#13ca9188"
         barStyle="light-content"
       />
       {isHomepage ? (
@@ -38,9 +38,7 @@ function Login(props) {
               underlineColorAndroid="#0000"
             />
           </View>
-          <View
-            style={[styles.inputContainer,{marginTop:10}]}
-          >
+          <View style={[styles.inputContainer, { marginTop: 10 }]}>
             <Icon name="key" style={styles.mobileIcon} />
             <TextInput
               placeholder="Password"
@@ -56,7 +54,7 @@ function Login(props) {
             style={styles.loginContainer}
             onPress={() => onSubmit()}
           >
-            <Text style={{ color: "white", fontSize: 16, padding: 8}}>
+            <Text style={{ color: "white", fontSize: 16, padding: 8 }}>
               Log in
             </Text>
           </TouchableOpacity>
